@@ -18,3 +18,14 @@ class TestBasics(unittest.TestCase):
     def test_exponent(self):
         result = rpn.calculate("5 2 ^")
         self.assertEqual(25,result)
+    def test_modulo(self):
+        result = rpn.calculate("6 5 %")
+        self.assertEqual(1,result)
+    def test_parameter_error(self):
+        with self.assertRaises(TypeError) as cm:
+            rpn.calculate("4 2 1 -")
+        err = cm.exception
+        self.assertEqual(str(err), 'Too many parameters')
+    def test_chacracter_error(self):
+        with self.assertRaises(KeyError) as cm:
+            rpn.calculate("4 d +")
